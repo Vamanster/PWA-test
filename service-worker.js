@@ -1,6 +1,5 @@
 const cacheName = 'my-pwa-cache-v1';
 const assets = [
-  '/',
   '/index.html',
   '/styles.css',
   '/manifest.json',
