@@ -1,38 +1,29 @@
-const CACHE_NAME = "my-pwa-cache-v1";
-const ASSETS = [
-  "/",
-  "/index.html",
-  "/styles.css",
-  "/script.js",
-  "/icon-192x192.png",
-  "/icon-512x512.png"
+const cacheName = 'my-pwa-cache-v1';
+const assets = [
+  '/',
+  '/index.html',
+  '/styles.css',
+  '/manifest.json',
+  '/app.js',
+  '/icons/icon-192x192.png',
+  '/icons/icon-512x512.png'
 ];
 
-// Install event: Caches assets
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(ASSETS))
-      .catch((error) => console.error("Failed to cache assets:", error))
+// Install the service worker and cache assets
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(cacheName).then((cache) => {
+      console.log('Service Worker: Caching files');
+      return cache.addAll(assets);
+    })
   );
 });
 
-// Fetch event: Serve cached files when offline
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => response || fetch(event.request))
-      .catch(() => console.error("Fetch failed for:", event.request.url))
-  );
-});
-
-// Activate event: Clean up old caches
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
-      );
+// Serve from cache during fetch requests
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    caches.match(e.request).then((cacheResponse) => {
+      return cacheResponse || fetch(e.request);
     })
   );
 });

@@ -1,7 +1,10 @@
 body {
-    /* background: rgb(0,161,141); */
-    /* background: linear-gradient(135deg, rgba(0,161,141,1) 0%, rgba(255,255,255,1) 50%, rgba(255,150,0,1) 100%); */
-    background-image: url("icon-512x512.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  h1 {
+    color: #333;
+  }
