@@ -10,5 +10,11 @@
 </head>
 <body>
     <h1>Hello There</h1>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(() => console.log("Service Worker Registered"));
+        }
+    </script>
 </body>
 </html>
